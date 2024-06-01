@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results for "<%= title %>"</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 30px;
+        }
+        
+        .manga-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .manga-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .manga-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .manga-item img {
+            height: 200px;
+            width: auto;
+            display: block;
+            margin: 0 auto 10px;
+            border-radius: 4px;
+        }
+        
+        .manga-item h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.2em;
+        }
+        
+        .manga-item p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+
+        .manga-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results for "<%= title %>"</h1>
+        <ul class="manga-grid">
+            <% mangaList.forEach(manga => { %>
+                <li class="manga-item">
+                    <a href="/manga/<%= manga.id %>">
+                        <h2><%= manga.attributes.title.en %></h2>
+                        <% if (manga.coverUrlFull) { %>
+                            <img src="<%= manga.coverUrlFull %>" alt="Cover image of <%= manga.attributes.title.en %>">
+                        <% } else { %>
+                            <p>No cover image available</p>
+                        <% } %>
+                        <p><%= manga.truncatedDescription %></p>
+                    </a>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>

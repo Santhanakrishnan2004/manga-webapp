@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= manga.attributes.title.en %> - Details</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .manga-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .manga-details img {
+            height: 300px;
+            width: auto;
+            display: block;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .manga-details h1 {
+            margin-top: 0;
+            color: #333;
+            font-size: 2em;
+            text-align: center;
+        }
+        
+        .manga-details p {
+            color: #666;
+            font-size: 1em;
+            margin: 10px 0;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="manga-details">
+            <h1><%= manga.attributes.title.en %></h1>
+            <% if (coverUrl) { %>
+                <img src="<%= coverUrl %>" alt="Cover image of <%= manga.attributes.title.en %>">
+            <% } else { %>
+                <p>No cover image available</p>
+            <% } %>
+            <p><%= manga.attributes.description.en %></p>
+            <p>Total Volumes: <%= manga.attributes.lastVolume %></p>
+            <p>Total Chapters: <%= manga.attributes.lastChapter%></p>
+            <p>last updated at: <%= manga.attributes.updatedAt %></p>
+        </div>
+    </div>
+    
+</body>
+</html>
