@@ -237,7 +237,9 @@ app.post('/login', async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id }, 'your_secret_key', { expiresIn: '1h' }
+        
+    );
 
     res.status(200).json({ token });
 });
@@ -329,6 +331,37 @@ app.get('/manga/:mangaId/download', async (req, res) => {
         res.status(500).send('An error occurred while retrieving manga details.');
     }
 });
+
+
+app.get('/random', async (req, res) => {
+    const type = req.query.type; // 'anime' or 'manga'
+    try {
+        const response = await axios.get(`https://api.jikan.moe/v4/random/${type}`);
+        const data = response.data.data;
+        res.render('random', { data, type });
+    } catch (error) {
+        console.error('Error fetching random anime or manga:', error);
+        res.status(500).send('An error occurred while fetching random data.');
+    }
+});
+app.get('/topanime', async (req, res) => {
+    try {
+        // Fetch data from the API
+        const response = await axios.get('https://api.jikan.moe/v4/top/anime');
+        const data = response.data.data;
+
+        // Render the index page and pass the data to it
+        res.render('index', { data: data });
+    } catch (error) {
+        // Handle errors
+        console.error('Error fetching data:', error);
+        res.status(500).send('An error occurred while fetching data.');
+    }
+});
+
+
+
+
 // Route to fetch and display manga details
 app.get('/manga/:mangaId', async (req, res) => {
     const { mangaId } = req.params;
